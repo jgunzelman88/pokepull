@@ -15,7 +15,6 @@ for (let set of sets) {
     )
 }
 
-
 /*
 let files = process.argv.slice(2)
 for (let file of files) {

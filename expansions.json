@@ -1,1 +1,682 @@
-[{"name":"Brilliant Stars","id":"SWSH09-Brilliant-Stars","series":""},{"name":"Fusion Strike","id":"SWSH8-Fusion-Strike","series":""},{"name":"Celebrations","id":"25TH-Celebrations","series":""},{"name":"Evolving Skies","id":"SWSH7-Evolving-Skies","series":""},{"name":"Chilling Reign","id":"CRE-Chilling-Reign","series":""},{"name":"Battle Styles","id":"SWSH05-Battle-Styles","series":""},{"name":"Shining Fates","id":"SWSH45-Shining-Fates","series":""},{"name":"McDonald's 25th Anniversary","id":"MCD21-McDonalds-25th-Anniversary","series":""},{"name":"Vivid Voltage","id":"SWSH4-Vivid-Voltage","series":""},{"name":"Champion's Path","id":"SWSH3-Champions-Path","series":""},{"name":"Pokemon Futsal Promos","id":"SWSH35-Pokemon-Futsal-Promos","series":""},{"name":"Darkness Ablaze","id":"SWSH3-Darkness-Ablaze","series":""},{"name":"Rebel Clash","id":"SWSH2-Rebel-Clash","series":""},{"name":"Sword & Shield Promos","id":"SWSH-Sword-Shield-Promos","series":""},{"name":"Sword & Shield","id":"SH01-Sword-Shield","series":""},{"name":"Cosmic Eclipse","id":"CEC-Cosmic-Eclipse","series":""},{"name":"McDonald's Collection (2019 FR)","id":"MCD9FR-McDonalds-Collection-2019-FR","series":""},{"name":"McDonald's Collection (2019)","id":"MCD9-McDonalds-Collection-2019","series":""},{"name":"Hidden Fates","id":"HIF-Hidden-Fates","series":""},{"name":"Unified Minds","id":"UMI-Unified-Minds","series":""},{"name":"Unbroken Bonds","id":"UNB-Unbroken-Bonds","series":""},{"name":"Detective Pikachu","id":"DET-Detective-Pikachu","series":""},{"name":"Team Up","id":"SM9-Team-Up","series":""},{"name":"Lost Thunder","id":"LOT-Lost-Thunder","series":""},{"name":"McDonald's Collection (2018)","id":"MCD8-McDonalds-Collection-2018","series":""},{"name":"Dragon Majesty","id":"DRM-Dragon-Majesty","series":""},{"name":"Celestial Storm","id":"CES-Celestial-Storm","series":""},{"name":"Forbidden Light","id":"FLI-Forbidden-Light","series":""},{"name":"Ultra Prism","id":"UPR-Ultra-Prism","series":""},{"name":"Crimson Invasion","id":"CIN-Crimson-Invasion","series":""},{"name":"Shining Legends","id":"SLG-Shining-Legends","series":""},{"name":"Burning Shadows","id":"BSH-Burning-Shadows","series":""},{"name":"McDonald's Collection (2017)","id":"MCD7-McDonalds-Collection-2017","series":""},{"name":"Guardians Rising","id":"GRI-Guardians-Rising","series":""},{"name":"Sun & Moon Promos","id":"SM-Sun-Moon-Promos","series":""},{"name":"Sun & Moon","id":"SUM-Sun-Moon","series":""},{"name":"Evolutions","id":"EVO-Evolutions","series":""},{"name":"McDonald's Collection (2016)","id":"MCD6-McDonalds-Collection-2016","series":""},{"name":"Steam Siege","id":"STS-Steam-Siege","series":""},{"name":"Fates Collide","id":"FCO-Fates-Collide","series":""},{"name":"Generations","id":"GEN-Generations","series":""},{"name":"BREAKPoint","id":"BKP-BREAKPoint","series":""},{"name":"McDonald's Collection (2015)","id":"MCD5-McDonalds-Collection-2015","series":""},{"name":"XY BREAKthrough","id":"BKT-XY-BREAKthrough","series":""},{"name":"Ancient Origins","id":"AOR-Ancient-Origins","series":""},{"name":"Roaring Skies","id":"ROS-Roaring-Skies","series":""},{"name":"Double Crisis","id":"DCR-Double-Crisis","series":""},{"name":"Primal Clash","id":"PRC-Primal-Clash","series":""},{"name":"Phantom Forces","id":"PHF-Phantom-Forces","series":""},{"name":"Furious Fists","id":"FFI-Furious-Fists","series":""},{"name":"McDonald's Collection (2014)","id":"MCD4-McDonalds-Collection-2014","series":""},{"name":"XY Flashfire","id":"FLF-XY-Flashfire","series":""},{"name":"Kalos Starter Set","id":"KSS-Kalos-Starter-Set","series":""},{"name":"XY Promos","id":"XY-XY-Promos","series":""},{"name":"XY","id":"XY-XY","series":""},{"name":"Radiant Collection","id":"RC-Radiant-Collection","series":""},{"name":"Legendary Treasures","id":"LTR-Legendary-Treasures","series":""},{"name":"Plasma Blast","id":"PLB-Plasma-Blast","series":""},{"name":"Plasma Freeze","id":"PLF-Plasma-Freeze","series":""},{"name":"Plasma Storm","id":"PLS-Plasma-Storm","series":""},{"name":"Boundaries Crossed","id":"BCR-Boundaries-Crossed","series":""},{"name":"Dragon Vault","id":"DRV-Dragon-Vault","series":""},{"name":"Dragons Exalted","id":"DRX-Dragons-Exalted","series":""},{"name":"Dark Explorers","id":"DEX-Dark-Explorers","series":""},{"name":"Next Destinies","id":"NXD-Next-Destinies","series":""},{"name":"Noble Victories","id":"NVI-Noble-Victories","series":""},{"name":"Emerging Powers","id":"EPO-Emerging-Powers","series":""},{"name":"Black & White","id":"BLW-Black-White","series":""},{"name":"McDonald's Collection (2013)","id":"MCD-McDonalds-Collection-2013","series":""},{"name":"McDonald's Collection (2012)","id":"MCD-McDonalds-Collection-2012","series":""},{"name":"McDonald's Collection (2011)","id":"MCD-McDonalds-Collection-2011","series":""},{"name":"Black & White Promos","id":"BW-Black-White-Promos","series":""},{"name":"Call of Legends","id":"CL-Call-of-Legends","series":""},{"name":"HS Triumphant","id":"TM-HS-Triumphant","series":""},{"name":"HS Undaunted","id":"UD-HS-Undaunted","series":""},{"name":"HS Unleashed","id":"UL-HS-Unleashed","series":""},{"name":"HeartGold SoulSilver Promos","id":"HGSS-HeartGold-SoulSilver-Promos","series":""},{"name":"HeartGold SoulSilver","id":"HGSS-HeartGold-SoulSilver","series":""},{"name":"Pokemon Rumble","id":"RUM-Pokemon-Rumble","series":""},{"name":"Platinum - Arceus","id":"AR-Platinum-Arceus","series":""},{"name":"Platinum - Supreme Victors","id":"SV-Platinum-Supreme-Victors","series":""},{"name":"Platinum - Rising Rivals","id":"RR-Platinum-Rising-Rivals","series":""},{"name":"Platinum","id":"PL-Platinum","series":""},{"name":"POP Series 9","id":"POP9-POP-Series-9","series":""},{"name":"POP Series 8","id":"POP8-POP-Series-8","series":""},{"name":"POP Series 7","id":"POP7-POP-Series-7","series":""},{"name":"POP Series 6","id":"POP6-POP-Series-6","series":""},{"name":"POP Series 5","id":"POP5-POP-Series-5","series":""},{"name":"POP Series 4","id":"POP4-POP-Series-4","series":""},{"name":"POP Series 3","id":"POP3-POP-Series-3","series":""},{"name":"POP Series 2","id":"POP2-POP-Series-2","series":""},{"name":"POP Series 1","id":"POP1-POP-Series-1","series":""},{"name":"Nintendo Promos","id":"NPR-Nintendo-Promos","series":""},{"name":"Stormfront","id":"SF-Stormfront","series":""},{"name":"Legends Awakened","id":"LA-Legends-Awakened","series":""},{"name":"Majestic Dawn","id":"MD-Majestic-Dawn","series":""},{"name":"Great Encounters","id":"GE-Great-Encounters","series":""},{"name":"Secret Wonders","id":"SW-Secret-Wonders","series":""},{"name":"Mysterious Treasures","id":"MT-Mysterious-Treasures","series":""},{"name":"DP Black Star Promos","id":"DP-DP-Black-Star-Promos","series":""},{"name":"Diamond & Pearl","id":"DP-Diamond-Pearl","series":""},{"name":"EX Power Keepers","id":"PK-EX-Power-Keepers","series":""},{"name":"EX Dragon Frontiers","id":"DF-EX-Dragon-Frontiers","series":""},{"name":"EX Crystal Guardians","id":"CG-EX-Crystal-Guardians","series":""},{"name":"EX Holon Phantoms","id":"HP-EX-Holon-Phantoms","series":""},{"name":"EX Legend Maker","id":"LM-EX-Legend-Maker","series":""},{"name":"EX Delta Species","id":"DS-EX-Delta-Species","series":""},{"name":"EX Unseen Forces Unown Collection","id":"UFU-EX-Unseen-Forces-Unown-Collection","series":""},{"name":"EX Unseen Forces","id":"UF-EX-Unseen-Forces","series":""},{"name":"EX Emerald","id":"EM-EX-Emerald","series":""},{"name":"EX Deoxys","id":"DX-EX-Deoxys","series":""},{"name":"EX Team Rocket Returns","id":"RR-EX-Team-Rocket-Returns","series":""},{"name":"EX FireRed & LeafGreen","id":"RG-EX-FireRed-LeafGreen","series":""},{"name":"EX Hidden Legends","id":"HL-EX-Hidden-Legends","series":""},{"name":"EX Team Magma vs Team Aqua","id":"MA-EX-Team-Magma-vs-Team-Aqua","series":""},{"name":"EX Dragon","id":"DR-EX-Dragon","series":""},{"name":"EX Sandstorm","id":"SS-EX-Sandstorm","series":""},{"name":"EX Ruby & Sapphire","id":"RS-EX-Ruby-Sapphire","series":""},{"name":"Skyridge","id":"SK-Skyridge","series":""},{"name":"Aquapolis","id":"AQ-Aquapolis","series":""},{"name":"Best of Game","id":"BEST-Best-of-Game","series":""},{"name":"Expedition","id":"EX-Expedition","series":""},{"name":"Legendary Collection","id":"LC-Legendary-Collection","series":""},{"name":"Neo Destiny","id":"N4-Neo-Destiny","series":""},{"name":"Neo Revelation","id":"N3-Neo-Revelation","series":""},{"name":"Southern Islands","id":"SI-Southern-Islands","series":""},{"name":"Neo Discovery","id":"N2-Neo-Discovery","series":""},{"name":"Neo Genesis","id":"N1-Neo-Genesis","series":""},{"name":"Gym Challenge","id":"G2-Gym-Challenge","series":""},{"name":"Gym Heroes","id":"G1-Gym-Heroes","series":""},{"name":"Team Rocket","id":"TR-Team-Rocket","series":""},{"name":"Base Set 2","id":"B2-Base-Set-2","series":""},{"name":"Fossil","id":"FO-Fossil","series":""},{"name":"Wizards of the Coast Promos","id":"WOTC-Wizards-of-the-Coast-Promos","series":""},{"name":"Jungle","id":"JU-Jungle","series":""},{"name":"Base Set","id":"BS-Base-Set","series":""}]
+[
+    {
+        "name": "Brilliant Stars",
+        "id": "SWSH09-Brilliant-Stars",
+        "series": ""
+    },
+    {
+        "name": "Fusion Strike",
+        "id": "SWSH8-Fusion-Strike",
+        "series": ""
+    },
+    {
+        "name": "Celebrations",
+        "id": "25TH-Celebrations",
+        "series": ""
+    },
+    {
+        "name": "Evolving Skies",
+        "id": "SWSH7-Evolving-Skies",
+        "series": ""
+    },
+    {
+        "name": "Chilling Reign",
+        "id": "CRE-Chilling-Reign",
+        "series": ""
+    },
+    {
+        "name": "Battle Styles",
+        "id": "SWSH05-Battle-Styles",
+        "series": ""
+    },
+    {
+        "name": "Shining Fates",
+        "id": "SWSH45-Shining-Fates",
+        "series": ""
+    },
+    {
+        "name": "McDonald's 25th Anniversary",
+        "id": "MCD21-McDonalds-25th-Anniversary",
+        "series": ""
+    },
+    {
+        "name": "Vivid Voltage",
+        "id": "SWSH4-Vivid-Voltage",
+        "series": ""
+    },
+    {
+        "name": "Champion's Path",
+        "id": "SWSH3-Champions-Path",
+        "series": ""
+    },
+    {
+        "name": "Pokemon Futsal Promos",
+        "id": "SWSH35-Pokemon-Futsal-Promos",
+        "series": ""
+    },
+    {
+        "name": "Darkness Ablaze",
+        "id": "SWSH3-Darkness-Ablaze",
+        "series": ""
+    },
+    {
+        "name": "Rebel Clash",
+        "id": "SWSH2-Rebel-Clash",
+        "series": ""
+    },
+    {
+        "name": "Sword & Shield Promos",
+        "id": "SWSH-Sword-Shield-Promos",
+        "series": ""
+    },
+    {
+        "name": "Sword & Shield",
+        "id": "SH01-Sword-Shield",
+        "series": ""
+    },
+    {
+        "name": "Cosmic Eclipse",
+        "id": "CEC-Cosmic-Eclipse",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2019 FR)",
+        "id": "MCD9FR-McDonalds-Collection-2019-FR",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2019)",
+        "id": "MCD9-McDonalds-Collection-2019",
+        "series": ""
+    },
+    {
+        "name": "Hidden Fates",
+        "id": "HIF-Hidden-Fates",
+        "series": ""
+    },
+    {
+        "name": "Unified Minds",
+        "id": "UMI-Unified-Minds",
+        "series": ""
+    },
+    {
+        "name": "Unbroken Bonds",
+        "id": "UNB-Unbroken-Bonds",
+        "series": ""
+    },
+    {
+        "name": "Detective Pikachu",
+        "id": "DET-Detective-Pikachu",
+        "series": ""
+    },
+    {
+        "name": "Team Up",
+        "id": "SM9-Team-Up",
+        "series": ""
+    },
+    {
+        "name": "Lost Thunder",
+        "id": "LOT-Lost-Thunder",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2018)",
+        "id": "MCD8-McDonalds-Collection-2018",
+        "series": ""
+    },
+    {
+        "name": "Dragon Majesty",
+        "id": "DRM-Dragon-Majesty",
+        "series": ""
+    },
+    {
+        "name": "Celestial Storm",
+        "id": "CES-Celestial-Storm",
+        "series": ""
+    },
+    {
+        "name": "Forbidden Light",
+        "id": "FLI-Forbidden-Light",
+        "series": ""
+    },
+    {
+        "name": "Ultra Prism",
+        "id": "UPR-Ultra-Prism",
+        "series": ""
+    },
+    {
+        "name": "Crimson Invasion",
+        "id": "CIN-Crimson-Invasion",
+        "series": ""
+    },
+    {
+        "name": "Shining Legends",
+        "id": "SLG-Shining-Legends",
+        "series": ""
+    },
+    {
+        "name": "Burning Shadows",
+        "id": "BSH-Burning-Shadows",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2017)",
+        "id": "MCD7-McDonalds-Collection-2017",
+        "series": ""
+    },
+    {
+        "name": "Guardians Rising",
+        "id": "GRI-Guardians-Rising",
+        "series": ""
+    },
+    {
+        "name": "Sun & Moon Promos",
+        "id": "SM-Sun-Moon-Promos",
+        "series": ""
+    },
+    {
+        "name": "Sun & Moon",
+        "id": "SUM-Sun-Moon",
+        "series": ""
+    },
+    {
+        "name": "Evolutions",
+        "id": "EVO-Evolutions",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2016)",
+        "id": "MCD6-McDonalds-Collection-2016",
+        "series": ""
+    },
+    {
+        "name": "Steam Siege",
+        "id": "STS-Steam-Siege",
+        "series": ""
+    },
+    {
+        "name": "Fates Collide",
+        "id": "FCO-Fates-Collide",
+        "series": ""
+    },
+    {
+        "name": "Generations",
+        "id": "GEN-Generations",
+        "series": ""
+    },
+    {
+        "name": "BREAKPoint",
+        "id": "BKP-BREAKPoint",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2015)",
+        "id": "MCD5-McDonalds-Collection-2015",
+        "series": ""
+    },
+    {
+        "name": "XY BREAKthrough",
+        "id": "BKT-XY-BREAKthrough",
+        "series": ""
+    },
+    {
+        "name": "Ancient Origins",
+        "id": "AOR-Ancient-Origins",
+        "series": ""
+    },
+    {
+        "name": "Roaring Skies",
+        "id": "ROS-Roaring-Skies",
+        "series": ""
+    },
+    {
+        "name": "Double Crisis",
+        "id": "DCR-Double-Crisis",
+        "series": ""
+    },
+    {
+        "name": "Primal Clash",
+        "id": "PRC-Primal-Clash",
+        "series": ""
+    },
+    {
+        "name": "Phantom Forces",
+        "id": "PHF-Phantom-Forces",
+        "series": ""
+    },
+    {
+        "name": "Furious Fists",
+        "id": "FFI-Furious-Fists",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2014)",
+        "id": "MCD4-McDonalds-Collection-2014",
+        "series": ""
+    },
+    {
+        "name": "XY Flashfire",
+        "id": "FLF-XY-Flashfire",
+        "series": ""
+    },
+    {
+        "name": "Kalos Starter Set",
+        "id": "KSS-Kalos-Starter-Set",
+        "series": ""
+    },
+    {
+        "name": "XY Promos",
+        "id": "XY-XY-Promos",
+        "series": ""
+    },
+    {
+        "name": "XY",
+        "id": "XY-XY",
+        "series": ""
+    },
+    {
+        "name": "Radiant Collection",
+        "id": "RC-Radiant-Collection",
+        "series": ""
+    },
+    {
+        "name": "Legendary Treasures",
+        "id": "LTR-Legendary-Treasures",
+        "series": ""
+    },
+    {
+        "name": "Plasma Blast",
+        "id": "PLB-Plasma-Blast",
+        "series": ""
+    },
+    {
+        "name": "Plasma Freeze",
+        "id": "PLF-Plasma-Freeze",
+        "series": ""
+    },
+    {
+        "name": "Plasma Storm",
+        "id": "PLS-Plasma-Storm",
+        "series": ""
+    },
+    {
+        "name": "Boundaries Crossed",
+        "id": "BCR-Boundaries-Crossed",
+        "series": ""
+    },
+    {
+        "name": "Dragon Vault",
+        "id": "DRV-Dragon-Vault",
+        "series": ""
+    },
+    {
+        "name": "Dragons Exalted",
+        "id": "DRX-Dragons-Exalted",
+        "series": ""
+    },
+    {
+        "name": "Dark Explorers",
+        "id": "DEX-Dark-Explorers",
+        "series": ""
+    },
+    {
+        "name": "Next Destinies",
+        "id": "NXD-Next-Destinies",
+        "series": ""
+    },
+    {
+        "name": "Noble Victories",
+        "id": "NVI-Noble-Victories",
+        "series": ""
+    },
+    {
+        "name": "Emerging Powers",
+        "id": "EPO-Emerging-Powers",
+        "series": ""
+    },
+    {
+        "name": "Black & White",
+        "id": "BLW-Black-White",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2013)",
+        "id": "MCD-McDonalds-Collection-2013",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2012)",
+        "id": "MCD-McDonalds-Collection-2012",
+        "series": ""
+    },
+    {
+        "name": "McDonald's Collection (2011)",
+        "id": "MCD-McDonalds-Collection-2011",
+        "series": ""
+    },
+    {
+        "name": "Black & White Promos",
+        "id": "BW-Black-White-Promos",
+        "series": ""
+    },
+    {
+        "name": "Call of Legends",
+        "id": "CL-Call-of-Legends",
+        "series": ""
+    },
+    {
+        "name": "HS Triumphant",
+        "id": "TM-HS-Triumphant",
+        "series": ""
+    },
+    {
+        "name": "HS Undaunted",
+        "id": "UD-HS-Undaunted",
+        "series": ""
+    },
+    {
+        "name": "HS Unleashed",
+        "id": "UL-HS-Unleashed",
+        "series": ""
+    },
+    {
+        "name": "HeartGold SoulSilver Promos",
+        "id": "HGSS-HeartGold-SoulSilver-Promos",
+        "series": ""
+    },
+    {
+        "name": "HeartGold SoulSilver",
+        "id": "HGSS-HeartGold-SoulSilver",
+        "series": ""
+    },
+    {
+        "name": "Pokemon Rumble",
+        "id": "RUM-Pokemon-Rumble",
+        "series": ""
+    },
+    {
+        "name": "Platinum - Arceus",
+        "id": "AR-Platinum-Arceus",
+        "series": ""
+    },
+    {
+        "name": "Platinum - Supreme Victors",
+        "id": "SV-Platinum-Supreme-Victors",
+        "series": ""
+    },
+    {
+        "name": "Platinum - Rising Rivals",
+        "id": "RR-Platinum-Rising-Rivals",
+        "series": ""
+    },
+    {
+        "name": "Platinum",
+        "id": "PL-Platinum",
+        "series": ""
+    },
+    {
+        "name": "POP Series 9",
+        "id": "POP9-POP-Series-9",
+        "series": ""
+    },
+    {
+        "name": "POP Series 8",
+        "id": "POP8-POP-Series-8",
+        "series": ""
+    },
+    {
+        "name": "POP Series 7",
+        "id": "POP7-POP-Series-7",
+        "series": ""
+    },
+    {
+        "name": "POP Series 6",
+        "id": "POP6-POP-Series-6",
+        "series": ""
+    },
+    {
+        "name": "POP Series 5",
+        "id": "POP5-POP-Series-5",
+        "series": ""
+    },
+    {
+        "name": "POP Series 4",
+        "id": "POP4-POP-Series-4",
+        "series": ""
+    },
+    {
+        "name": "POP Series 3",
+        "id": "POP3-POP-Series-3",
+        "series": ""
+    },
+    {
+        "name": "POP Series 2",
+        "id": "POP2-POP-Series-2",
+        "series": ""
+    },
+    {
+        "name": "POP Series 1",
+        "id": "POP1-POP-Series-1",
+        "series": ""
+    },
+    {
+        "name": "Nintendo Promos",
+        "id": "NPR-Nintendo-Promos",
+        "series": ""
+    },
+    {
+        "name": "Stormfront",
+        "id": "SF-Stormfront",
+        "series": ""
+    },
+    {
+        "name": "Legends Awakened",
+        "id": "LA-Legends-Awakened",
+        "series": ""
+    },
+    {
+        "name": "Majestic Dawn",
+        "id": "MD-Majestic-Dawn",
+        "series": ""
+    },
+    {
+        "name": "Great Encounters",
+        "id": "GE-Great-Encounters",
+        "series": ""
+    },
+    {
+        "name": "Secret Wonders",
+        "id": "SW-Secret-Wonders",
+        "series": ""
+    },
+    {
+        "name": "Mysterious Treasures",
+        "id": "MT-Mysterious-Treasures",
+        "series": ""
+    },
+    {
+        "name": "DP Black Star Promos",
+        "id": "DP-DP-Black-Star-Promos",
+        "series": ""
+    },
+    {
+        "name": "Diamond & Pearl",
+        "id": "DP-Diamond-Pearl",
+        "series": ""
+    },
+    {
+        "name": "EX Power Keepers",
+        "id": "PK-EX-Power-Keepers",
+        "series": ""
+    },
+    {
+        "name": "EX Dragon Frontiers",
+        "id": "DF-EX-Dragon-Frontiers",
+        "series": ""
+    },
+    {
+        "name": "EX Crystal Guardians",
+        "id": "CG-EX-Crystal-Guardians",
+        "series": ""
+    },
+    {
+        "name": "EX Holon Phantoms",
+        "id": "HP-EX-Holon-Phantoms",
+        "series": ""
+    },
+    {
+        "name": "EX Legend Maker",
+        "id": "LM-EX-Legend-Maker",
+        "series": ""
+    },
+    {
+        "name": "EX Delta Species",
+        "id": "DS-EX-Delta-Species",
+        "series": ""
+    },
+    {
+        "name": "EX Unseen Forces Unown Collection",
+        "id": "UFU-EX-Unseen-Forces-Unown-Collection",
+        "series": ""
+    },
+    {
+        "name": "EX Unseen Forces",
+        "id": "UF-EX-Unseen-Forces",
+        "series": ""
+    },
+    {
+        "name": "EX Emerald",
+        "id": "EM-EX-Emerald",
+        "series": ""
+    },
+    {
+        "name": "EX Deoxys",
+        "id": "DX-EX-Deoxys",
+        "series": ""
+    },
+    {
+        "name": "EX Team Rocket Returns",
+        "id": "RR-EX-Team-Rocket-Returns",
+        "series": ""
+    },
+    {
+        "name": "EX FireRed & LeafGreen",
+        "id": "RG-EX-FireRed-LeafGreen",
+        "series": ""
+    },
+    {
+        "name": "EX Hidden Legends",
+        "id": "HL-EX-Hidden-Legends",
+        "series": ""
+    },
+    {
+        "name": "EX Team Magma vs Team Aqua",
+        "id": "MA-EX-Team-Magma-vs-Team-Aqua",
+        "series": ""
+    },
+    {
+        "name": "EX Dragon",
+        "id": "DR-EX-Dragon",
+        "series": ""
+    },
+    {
+        "name": "EX Sandstorm",
+        "id": "SS-EX-Sandstorm",
+        "series": ""
+    },
+    {
+        "name": "EX Ruby & Sapphire",
+        "id": "RS-EX-Ruby-Sapphire",
+        "series": ""
+    },
+    {
+        "name": "Skyridge",
+        "id": "SK-Skyridge",
+        "series": ""
+    },
+    {
+        "name": "Aquapolis",
+        "id": "AQ-Aquapolis",
+        "series": ""
+    },
+    {
+        "name": "Best of Game",
+        "id": "BEST-Best-of-Game",
+        "series": ""
+    },
+    {
+        "name": "Expedition",
+        "id": "EX-Expedition",
+        "series": ""
+    },
+    {
+        "name": "Legendary Collection",
+        "id": "LC-Legendary-Collection",
+        "series": ""
+    },
+    {
+        "name": "Neo Destiny",
+        "id": "N4-Neo-Destiny",
+        "series": ""
+    },
+    {
+        "name": "Neo Revelation",
+        "id": "N3-Neo-Revelation",
+        "series": ""
+    },
+    {
+        "name": "Southern Islands",
+        "id": "SI-Southern-Islands",
+        "series": ""
+    },
+    {
+        "name": "Neo Discovery",
+        "id": "N2-Neo-Discovery",
+        "series": ""
+    },
+    {
+        "name": "Neo Genesis",
+        "id": "N1-Neo-Genesis",
+        "series": ""
+    },
+    {
+        "name": "Gym Challenge",
+        "id": "G2-Gym-Challenge",
+        "series": ""
+    },
+    {
+        "name": "Gym Heroes",
+        "id": "G1-Gym-Heroes",
+        "series": ""
+    },
+    {
+        "name": "Team Rocket",
+        "id": "TR-Team-Rocket",
+        "series": ""
+    },
+    {
+        "name": "Base Set 2",
+        "id": "B2-Base-Set-2",
+        "series": ""
+    },
+    {
+        "name": "Fossil",
+        "id": "FO-Fossil",
+        "series": ""
+    },
+    {
+        "name": "Wizards of the Coast Promos",
+        "id": "WOTC-Wizards-of-the-Coast-Promos",
+        "series": ""
+    },
+    {
+        "name": "Jungle",
+        "id": "JU-Jungle",
+        "series": ""
+    },
+    {
+        "name": "Base Set",
+        "id": "BS-Base-Set",
+        "series": ""
+    }
+]
