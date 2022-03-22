@@ -1,0 +1,24 @@
+{
+  "name": "pokepull",
+  "version": "1.0.0",
+  "description": "pull them pokemon",
+  "main": "PullAll.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgunzelman88/pokepull.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgunzelman88/pokepull/issues"
+  },
+  "homepage": "https://github.com/jgunzelman88/pokepull#readme",
+  "dependencies": {
+    "jsdom": "^19.0.0",
+    "jszip": "^3.7.1",
+    "xhr2": "^0.2.1"
+  }
+}
