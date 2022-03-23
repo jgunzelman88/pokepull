@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jgunzelman88/pokepull#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "jsdom": "^19.0.0",
     "jszip": "^3.7.1",
     "xhr2": "^0.2.1"
