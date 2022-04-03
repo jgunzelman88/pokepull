@@ -2,9 +2,12 @@
   "name": "pokepull",
   "version": "1.0.0",
   "description": "pull them pokemon",
-  "main": "PullAll.js",
+  "type": "module",
+  "main": "dist/PullPokellector",
+  "typings": "dist/PullPokellector",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": ""
   },
   "repository": {
     "type": "git",
@@ -18,8 +21,15 @@
   "homepage": "https://github.com/jgunzelman88/pokepull#readme",
   "dependencies": {
     "axios": "^0.26.1",
+    "fs": "^0.0.1-security",
     "jsdom": "^19.0.0",
     "jszip": "^3.7.1",
+    "lodash": "^4.17.21",
+    "lowdb": "^3.0.0",
+    "rxjs": "^7.5.5",
     "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23"
   }
 }
