@@ -1,0 +1,21 @@
+name: tag
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v21
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 17
+      - run: npm version 
+      - uses: Klemensas/action-autotag@stable
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+
+      
