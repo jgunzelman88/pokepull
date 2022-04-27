@@ -1,5 +1,4 @@
 name: tag
-
 on:
   push:
     branches:
@@ -16,6 +15,19 @@ jobs:
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v21
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 17
+      - run: npm install
+      - run: npm run build
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/data.sqlite3
 
 
       
