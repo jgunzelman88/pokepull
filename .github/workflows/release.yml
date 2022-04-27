@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v21
+      - run: npm install
+      - run: npm run build
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/data.sqlite3
