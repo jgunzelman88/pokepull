@@ -1,2 +1,3 @@
 # pokepull
-Pull Card data.
+Pull Card data into a sqlite database
+
