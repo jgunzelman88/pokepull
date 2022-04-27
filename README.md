@@ -1,2 +1,2 @@
 # pokepull
-Pull pricing data for cards
+Pull Card data.
