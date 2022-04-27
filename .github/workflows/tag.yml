@@ -13,7 +13,7 @@ jobs:
           node-version: 17
       - uses: Klemensas/action-autotag@stable
         with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.JPG_ACTION_TOKEN }}"
  
 
       
