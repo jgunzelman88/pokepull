@@ -1,26 +1,18 @@
-name: Pull cards
+name: Build
 
 on:
-  push:
-    branches: [main]
   schedule:
     - cron: 0 0 * * FRI
 jobs:
-  pull-data:
+  tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 17
-      - run: npm install
-      - run: npm run build
+      - uses: actions/checkout@v21
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - uses: actions/setup-node@v1
         with:
-          files: dist/data.sqlite3
+          node-version: 17
+
       
