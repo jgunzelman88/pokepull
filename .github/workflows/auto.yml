@@ -1,4 +1,4 @@
-name: Auto
+name: auto
 
 on:
   schedule:
