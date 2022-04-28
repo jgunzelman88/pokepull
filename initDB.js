@@ -13,7 +13,7 @@ expName TEXT,
 expCardNumber TEXT,
 rarity TEXT,
 img TEXT,
-description TEXT NULL,
+description TEXT NULL,   
 releaseDate TEXT NULL,
 energyType TEXT NULL,
 cardType TEXT NULL
@@ -37,8 +37,6 @@ name TEXT UNIQUE,
 icon TEXT,
 releaseDate TEXT
 );`
-
-
 
 export const addExpSql =
     "INSERT INTO expansions (name, series, tcgName, pokellectorSet, numberOfCards, logoURL, symbolURL) " +
@@ -186,15 +184,14 @@ async function getPokellectorSeries() {
                             $logoURL: imgs[0].src,
                             $symbolURL: imgs[1].src
                         }
-                        await dbRun(addExpSql, exp)
-                        console.log(`Pulling ${exp.$name} `)
-                        console.log(exp.$tcgName)
-                        if (exp.$tcgName === "[\"N/A\"]") {
-                            pullCardsPokellecotor(exp)
-                        } else {
-                            await pullCardsTCGP(exp)
-                        }
-
+                            await dbRun(addExpSql, exp)
+                            console.log(`Pulling ${exp.$name} `)
+                            if (exp.$tcgName === "[\"N/A\"]") {
+                                pullCardsPokellecotor(exp)
+                            } else {
+                              await pullCardsTCGP(exp)
+                            }
+                
                     }
                 }
             }
@@ -244,7 +241,7 @@ async function pullCardsTCGP(expantion) {
     let relDateExp = releaseDate
     let relSeries = releaseDate
     if (relDateExp == null) {
-        let date = new Date(missingData.expRelDates.find((value) => value.name === expantion.$name).releaseDate)
+        let date= new Date(missingData.expRelDates.find((value) => value.name === expantion.$name).releaseDate)
         relDateExp = date.toISOString()
     }
     if (relSeries == null) {
@@ -260,8 +257,8 @@ async function pullCardsTCGP(expantion) {
     console.log(`Added ${count} ${expantion.$name} cards`)
 }
 
-function findTcgSetName(expName, series, tcgSets) {
-    let expNameNorm = (series === expName) ? normalizePOKE(expName) + "baseset" : normalizePOKE(expName)
+function findTcgSetName(expName,  series, tcgSets) {
+    let expNameNorm = (series === expName) ? normalizePOKE(expName)+"baseset" : normalizePOKE(expName)
     let name = searchNameMap(expName)
 
     if (name.length == 0) {
@@ -273,26 +270,26 @@ function findTcgSetName(expName, series, tcgSets) {
     return (name != null && name.length != 0) ? JSON.stringify(name) : ["N/A"]
 }
 
-function searchNameMap(name) {
+function searchNameMap(name){
     let newName = missingData.tcgNameMap.find((value) => value.name === name)
     return newName != null ? newName.tcgName : []
 }
 
-function normalizePOKE(name) {
+function normalizePOKE(name){
     return name.toLowerCase()
-        .replaceAll(' ', '')
-        .replaceAll('-', '')
-        .replaceAll('&', '')
-        .replaceAll(`'`, ``)
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll('and', '')
-        .replaceAll(`mcdonaldscollection`, 'mcdonaldspromos')
-        .replaceAll('promocards', 'promos')
-        .replaceAll('wizardsofthecoast', 'wotc')
-        .replaceAll('blackstarpromos', 'promos')
-        .replaceAll(`diamondpearl`, `dp`)
-        .replaceAll('bestofgame', 'bestof')
+    .replaceAll(' ', '')
+    .replaceAll('-', '')
+    .replaceAll('&', '')
+    .replaceAll(`'`, ``)
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll('and', '')
+    .replaceAll(`mcdonaldscollection`, 'mcdonaldspromos')
+    .replaceAll('promocards', 'promos')
+    .replaceAll('wizardsofthecoast', 'wotc')
+    .replaceAll('blackstarpromos', 'promos')
+    .replaceAll(`diamondpearl`, `dp`)
+    .replaceAll('bestofgame', 'bestof')
 }
 
 function normalizeTCG(name) {
