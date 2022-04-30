@@ -224,7 +224,7 @@ async function pullCardsTCGP(expantion) {
                 "$expName": expantion.$name,
                 "$expCardNumber": cardNum,
                 "$rarity": card.rarityName,
-                "$img": `https://tcgplayer-cdn.tcgplayer.com/product/${card.productId.toFixed()}_200w.jpg`,
+                "$img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
                 "$description": card.customAttributes.description,
                 "$releaseDate": card.customAttributes.releaseDate,
                 "$energyType": card.customAttributes.energyType[0] ?? "",
