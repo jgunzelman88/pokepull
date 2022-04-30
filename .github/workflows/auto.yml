@@ -15,14 +15,13 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 17
+    - name: setConfig files
+      run: |
+        git config --local user.email "poketrax@gmail.com"
+        git config --local user.name "github-actions[bot]"
     - name: increment version
       run: |
         npm version patch
-    - name: Commit files
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -m "🔖 Auto version" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
