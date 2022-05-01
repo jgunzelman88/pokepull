@@ -7,7 +7,7 @@
   "typings": "dist/PullPokellector",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./initDB.js"
+    "build": "node ./initDB.js && node ./postProcessing.js"
   },
   "repository": {
     "type": "git",

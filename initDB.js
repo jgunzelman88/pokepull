@@ -306,7 +306,7 @@ function normalizeTCG(name) {
         .replaceAll(`diamondpearl`, `dp`)
 }
 
-function dbRun(statement, args) {
+export function dbRun(statement, args) {
     return new Promise((resolve, reject) => {
         db.run(statement, args, (err) => {
             if (err) {
@@ -318,7 +318,7 @@ function dbRun(statement, args) {
     })
 }
 
-function dbSelect(statement, args) {
+export function dbSelect(statement, args) {
     return new Promise((resolve, reject) => {
         const rows = [];
         db.each(statement, args, (err, row) => {
