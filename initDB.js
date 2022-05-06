@@ -186,6 +186,7 @@ async function getPokellectorSeries() {
                         }
                             await dbRun(addExpSql, exp)
                             console.log(`Pulling ${exp.$name} `)
+                            console.log(`tcg ${exp.$tcgName}`)
                             if (exp.$tcgName === "[\"N/A\"]") {
                                 pullCardsPokellecotor(exp)
                             } else {
@@ -267,7 +268,7 @@ function findTcgSetName(expName,  series, tcgSets) {
     if (name.length == 0) {
         name = tcgSets.filter((value) => expNameNorm.includes(normalizeTCG(value)))
     }
-    return (name != null && name.length != 0) ? JSON.stringify(name) : ["N/A"]
+    return (name != null && name.length != 0) ? JSON.stringify(name) : "[\"N/A\"]"
 }
 
 function searchNameMap(name){
