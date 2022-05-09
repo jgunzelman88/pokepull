@@ -1,42 +1,49 @@
 import * as jsdom from 'jsdom'
 import axios from 'axios'
-import sqlite3 from 'sqlite3'
+import Database from 'better-sqlite3'
 import * as fs from 'fs'
 
 export const cardCreateDb =
     `CREATE TABLE IF NOT EXISTS cards (
-cardId TEXT UNIQUE,
-idTCGP TEXT NULL,
-name TEXT,
-expIdTCGP TEXT NULL,
-expName TEXT,
-expCardNumber TEXT,
-rarity TEXT,
-img TEXT,
-description TEXT NULL,   
-releaseDate TEXT NULL,
-energyType TEXT NULL,
-cardType TEXT NULL
-);`
+        cardId TEXT UNIQUE,
+        idTCGP INTEGER NULL,
+        name TEXT,
+        expIdTCGP TEXT NULL,
+        expName TEXT,
+        expCardNumber TEXT,
+        rarity TEXT,
+        img TEXT,
+        description TEXT NULL,   
+        releaseDate TEXT NULL,
+        energyType TEXT NULL,
+        cardType TEXT NULL
+        );`
 
 export const expansionCreateDb =
     `CREATE TABLE IF NOT EXISTS expansions (
-name TEXT UNIQUE,
-series TEXT,
-tcgName TEXT,
-pokellectorSet TEXT,
-numberOfCards INTEGER,
-logoURL TEXT,
-symbolURL TEXT,
-releaseDate TEXT
-);`
+        name TEXT UNIQUE,
+        series TEXT,
+        tcgName TEXT,
+        pokellectorSet TEXT,
+        numberOfCards INTEGER,
+        logoURL TEXT,
+        symbolURL TEXT,
+        releaseDate TEXT
+        );`
 
 export const seriesCreateDb =
     `CREATE TABLE IF NOT EXISTS series (
-name TEXT UNIQUE,
-icon TEXT,
-releaseDate TEXT
-);`
+        name TEXT UNIQUE,
+        icon TEXT,
+        releaseDate TEXT
+        );`
+
+export const pokedexCreateDb =
+    `CREATE TABLE IF NOT EXISTS pokedex (
+        id INTEGER,
+        name TEXT,
+        img TEXT
+        );`
 
 export const addExpSql =
     "INSERT INTO expansions (name, series, tcgName, pokellectorSet, numberOfCards, logoURL, symbolURL) " +
@@ -49,6 +56,10 @@ export const addCardSql =
 export const addSeriesSql =
     "INSERT INTO series (name, icon, releaseDate) " +
     "VALUES ($name, $icon, $releaseDate);"
+
+export const addPokedex =
+    `INSERT INTO pokedex (id, name, img)
+    VALUEs ($id, $name, $img)`
 
 const tcgRequest = `{
     "algorithm": "",
@@ -102,35 +113,31 @@ if (fs.existsSync("./dist/data.sqlite3")) {
     fs.rmSync("./dist/data.sqlite3")
 }
 
-const db = new sqlite3.Database('./dist/data.sqlite3', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
-    if (err) console.error('Database opening error: ', err);
-});
+const db = new Database('./dist/data.sqlite3')
 
-dataInit()
+start()
 
-async function dataInit() {
-    console.log("tables")
-    await createTables()
-    console.log("meta")
+async function start() {
+    console.log("Add Tables")
+    createTables()
+    console.log("Meta Data")
+    await getPokedex()
     await getTCGPmetaData()
-    console.log("sets")
+    fs.writeFileSync("./dist/tcgSets.json", JSON.stringify(tcgPlayerSets, null,1))
+    console.log("Pull Sets")
     await getPokellectorSeries()
-    console.log("close")
+    console.log("Closing database")
     db.close()
 }
 
-async function createTables() {
-    await db.serialize(async () => {
-        db.run(cardCreateDb, (err, _) => {
-            if (err) console.log(err)
-        })
-        db.run(expansionCreateDb, (err, _) => {
-            if (err) console.log(err)
-        })
-        db.run(seriesCreateDb, (err, _) => {
-            if (err) console.log(err)
-        })
-    })
+function createTables() {
+    db.prepare(cardCreateDb).run()
+    console.log(" - Create Card Table")
+    db.prepare(expansionCreateDb).run()
+    console.log(" - Create Expansion Table")
+    db.prepare(seriesCreateDb).run()
+    console.log(" - Create Series Table")
+    db.prepare(pokedexCreateDb).run()
 }
 
 async function getTCGPmetaData() {
@@ -162,10 +169,10 @@ async function getPokellectorSeries() {
             let series_name = seriesName[i].textContent?.replaceAll("Series", "").trim() || "n/a"
             let series_icon = seriesName[i].getElementsByTagName("img")[0].src
             //create new series not found
-            let series = { $name: series_name, $icon: series_icon, $releaseDate: "" }
-            let foundSeries = await dbSelect(`SELECT * FROM series WHERE name = $name`, { '$name': series_name })
+            let series = { name: series_name, icon: series_icon, releaseDate: "" }
+            let foundSeries = db.prepare(`SELECT * FROM series WHERE name = $name`).all({ 'name': series_name })
             if (foundSeries.length == 0) {
-                await dbRun(addSeriesSql, series)
+                db.prepare(addSeriesSql).run(series)
             }
             //cycle though expansions looking for new ones
             if (seriesExp != null) {
@@ -176,23 +183,23 @@ async function getPokellectorSeries() {
                         let expName = span?.textContent?.trim()
                         let imgs = button.getElementsByTagName("img")
                         let exp = {
-                            $name: expName,
-                            $series: series_name,
-                            $tcgName: findTcgSetName(expName, series_name, tcgPlayerSets),
-                            $pokellectorSet: null,
-                            $numberOfCards: 0,
-                            $logoURL: imgs[0].src,
-                            $symbolURL: imgs[1].src
+                            name: expName,
+                            series: series_name,
+                            tcgName: findTcgSetName(expName, series_name, tcgPlayerSets),
+                            pokellectorSet: `https://www.pokellector.com${button.href}`,
+                            numberOfCards: 0,
+                            logoURL: imgs[0].src,
+                            symbolURL: imgs[1].src
                         }
-                            await dbRun(addExpSql, exp)
-                            console.log(`Pulling ${exp.$name} `)
-                            console.log(`tcg ${exp.$tcgName}`)
-                            if (exp.$tcgName === "[\"N/A\"]") {
-                                pullCardsPokellecotor(exp)
-                            } else {
-                              await pullCardsTCGP(exp)
-                            }
-                
+                        db.prepare(addExpSql).run(exp)
+                        console.log(`Pulling ${exp.name} `)
+                        console.log(` - TCGP ${exp.tcgName}`)
+                        if (exp.tcgName === "[\"N/A\"]") {
+                            pullCardsPokellecotor(exp)
+                        } else {
+                            await pullCardsTCGP(exp)
+                        }
+
                     }
                 }
             }
@@ -202,13 +209,36 @@ async function getPokellectorSeries() {
 
 //Pull cards from pokellector
 function pullCardsPokellecotor(expantion) {
-    console.log("Pokellector BLAM")
+    /*let res = await axios.get(expantion.pokellectorSet);
+    const { window } = new jsdom.JSDOM(res.data)
+    let rows = window.document.getElementsByClassName("card")
+    for(let i = 0; i<rows.length; i+=2){
+        let plaque = rows[i].getElementsByClassName("plaque")[0].textContent
+        let img = rows[i+1].getElementsByTagName("img")[0].src
+        let cardNum = plaque.split("-")[0].replace("#", "").trim()
+        let name = plaque.split("-")[1].trim()
+
+        let newCard = {
+            "cardId": `${expantion.name.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
+            "idTCGP": -1,
+            "name": name,
+            "expIdTCGP": card.setUrlName,
+            "expName": expantion.name,
+            "expCardNumber": cardNum,
+            "rarity": card.rarityName,
+            "img": img,
+            "description": card.customAttributes.description,
+            "releaseDate": card.customAttributes.releaseDate,
+            "energyType": card.customAttributes.energyType[0] ?? "",
+            "cardType": card.customAttributes.cardType[0] ?? "",
+        }
+    }*/
 }
 
 //Pull cards from tcg player
 async function pullCardsTCGP(expantion) {
     let request = JSON.parse(tcgRequest)
-    request.filters.term.setName = JSON.parse(expantion.$tcgName)
+    request.filters.term.setName = JSON.parse(expantion.tcgName)
     let res = await axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, request)
     let count = 0
     let releaseDate
@@ -218,21 +248,21 @@ async function pullCardsTCGP(expantion) {
         if (name.includes("Code Card") === false) {
             let cardNum = card.customAttributes.number.split("/")[0]
             let newCard = {
-                "$cardId": `${expantion.$name.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
-                "$idTCGP": card.productId,
-                "$name": name,
-                "$expIdTCGP": card.setUrlName,
-                "$expName": expantion.$name,
-                "$expCardNumber": cardNum,
-                "$rarity": card.rarityName,
-                "$img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
-                "$description": card.customAttributes.description,
-                "$releaseDate": card.customAttributes.releaseDate,
-                "$energyType": card.customAttributes.energyType[0] ?? "",
-                "$cardType": card.customAttributes.cardType[0] ?? "",
+                "cardId": `${expantion.name.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
+                "idTCGP": card.productId,
+                "name": name,
+                "expIdTCGP": card.setUrlName,
+                "expName": expantion.name,
+                "expCardNumber": cardNum,
+                "rarity": card.rarityName,
+                "img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
+                "description": card.customAttributes.description,
+                "releaseDate": card.customAttributes.releaseDate,
+                "energyType": card.customAttributes.energyType[0] ?? "",
+                "cardType": card.customAttributes.cardType[0] ?? "",
             }
             try {
-                await dbRun(addCardSql, newCard)
+                db.prepare(addCardSql).run(newCard)
             } catch (err) {
                 console.log(err)
             }
@@ -242,24 +272,24 @@ async function pullCardsTCGP(expantion) {
     let relDateExp = releaseDate
     let relSeries = releaseDate
     if (relDateExp == null) {
-        let date= new Date(missingData.expRelDates.find((value) => value.name === expantion.$name).releaseDate)
+        let date = new Date(missingData.expRelDates.find((value) => value.name === expantion.name).releaseDate)
         relDateExp = date.toISOString()
     }
     if (relSeries == null) {
-        let date = new Date(missingData.seriesRelDate.find((value) => value.name === expantion.$series).releaseDate)
+        let date = new Date(missingData.seriesRelDate.find((value) => value.name === expantion.series).releaseDate)
         relSeries = date.toISOString()
     }
     try {
-        await dbRun("UPDATE series SET releaseDate = $releaseDate WHERE name = $name", { "$releaseDate": relSeries, "$name": expantion.$series })
-        await dbRun("UPDATE expansions SET releaseDate = $releaseDate, numberOfCards = $numberOfCards WHERE name = $name", { "$releaseDate": relDateExp, "$name": expantion.$name, "$numberOfCards": count })
+        db.prepare("UPDATE series SET releaseDate = $releaseDate WHERE name = $name").run({ "releaseDate": relSeries, "name": expantion.series })
+        db.prepare("UPDATE expansions SET releaseDate = $releaseDate, numberOfCards = $numberOfCards WHERE name = $name").run({ "releaseDate": relDateExp, "name": expantion.name, "numberOfCards": count })
     } catch (err) {
         console.log(err)
     }
-    console.log(`Added ${count} ${expantion.$name} cards`)
+    console.log(`Added ${count} ${expantion.name} cards`)
 }
 
-function findTcgSetName(expName,  series, tcgSets) {
-    let expNameNorm = (series === expName) ? normalizePOKE(expName)+"baseset" : normalizePOKE(expName)
+function findTcgSetName(expName, series, tcgSets) {
+    let expNameNorm = (series === expName) ? normalizePOKE(expName) + "baseset" : normalizePOKE(expName)
     let name = searchNameMap(expName)
 
     if (name.length == 0) {
@@ -271,26 +301,39 @@ function findTcgSetName(expName,  series, tcgSets) {
     return (name != null && name.length != 0) ? JSON.stringify(name) : "[\"N/A\"]"
 }
 
-function searchNameMap(name){
+function searchNameMap(name) {
     let newName = missingData.tcgNameMap.find((value) => value.name === name)
     return newName != null ? newName.tcgName : []
 }
 
-function normalizePOKE(name){
+async function getPokedex() {
+    console.log(" - Pulling pokedex")
+    let res = await axios.get(`https://pokemondb.net/pokedex/national`);
+    const { window } = new jsdom.JSDOM(res.data)
+    let rows = window.document.getElementsByClassName("infocard")
+    for(let row of rows){
+        let number = Number.parseInt(row.getElementsByTagName("small")[0].textContent.replace("#", ""))
+        let img = row.getElementsByClassName("img-sprite")[0].src
+        let name = row.getElementsByClassName('ent-name')[0].textContent
+        db.prepare(addPokedex).run({name: name, id: number, img: img})
+    }
+}
+
+function normalizePOKE(name) {
     return name.toLowerCase()
-    .replaceAll(' ', '')
-    .replaceAll('-', '')
-    .replaceAll('&', '')
-    .replaceAll(`'`, ``)
-    .replaceAll('(', '')
-    .replaceAll(')', '')
-    .replaceAll('and', '')
-    .replaceAll(`mcdonaldscollection`, 'mcdonaldspromos')
-    .replaceAll('promocards', 'promos')
-    .replaceAll('wizardsofthecoast', 'wotc')
-    .replaceAll('blackstarpromos', 'promos')
-    .replaceAll(`diamondpearl`, `dp`)
-    .replaceAll('bestofgame', 'bestof')
+        .replaceAll(' ', '')
+        .replaceAll('-', '')
+        .replaceAll('&', '')
+        .replaceAll(`'`, ``)
+        .replaceAll('(', '')
+        .replaceAll(')', '')
+        .replaceAll('and', '')
+        .replaceAll(`mcdonaldscollection`, 'mcdonaldspromos')
+        .replaceAll('promocards', 'promos')
+        .replaceAll('wizardsofthecoast', 'wotc')
+        .replaceAll('blackstarpromos', 'promos')
+        .replaceAll(`diamondpearl`, `dp`)
+        .replaceAll('bestofgame', 'bestof')
 }
 
 function normalizeTCG(name) {
@@ -305,34 +348,4 @@ function normalizeTCG(name) {
         .replaceAll('promocards', 'promos')
         .replaceAll('blackstarpromos', 'promos')
         .replaceAll(`diamondpearl`, `dp`)
-}
-
-export function dbRun(statement, args) {
-    return new Promise((resolve, reject) => {
-        db.run(statement, args, (err) => {
-            if (err) {
-                console.error(statement + ":" + args + ":" + err)
-                reject()
-            }
-            resolve()
-        })
-    })
-}
-
-export function dbSelect(statement, args) {
-    return new Promise((resolve, reject) => {
-        const rows = [];
-        db.each(statement, args, (err, row) => {
-            if (err) {
-                reject(err);
-            }
-            rows.push(row);
-        }, (err, _) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(rows)
-            }
-        });
-    });
 }

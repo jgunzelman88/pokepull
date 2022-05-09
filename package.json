@@ -1,6 +1,6 @@
 {
   "name": "pokepull",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "pull them pokemon",
   "type": "module",
   "main": "dist/PullPokellector",
@@ -21,13 +21,13 @@
   "homepage": "https://github.com/jgunzelman88/pokepull#readme",
   "dependencies": {
     "axios": "^0.26.1",
+    "better-sqlite3": "^7.5.1",
     "fs": "^0.0.1-security",
     "jsdom": "^19.0.0",
     "jszip": "^3.7.1",
     "lodash": "^4.17.21",
     "lowdb": "^3.0.0",
     "rxjs": "^7.5.5",
-    "sqlite3": "^5.0.4",
     "xhr2": "^0.2.1"
   },
   "devDependencies": {
