@@ -125,7 +125,7 @@
         {
             "name": "Platinum",
             "tcgName": [
-                "base-set"
+                "platinum"
             ]
         },
         {
@@ -192,6 +192,13 @@
             "name": "Gym Heroes",
             "tcgName": [
                 "gym-heroes"
+            ]
+        },
+        {
+            "name": "Base Set",
+            "tcgName": [
+                "base-set",
+                "base-set-shadowless"
             ]
         }
     ],

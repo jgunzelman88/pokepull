@@ -16,7 +16,9 @@ export const cardCreateDb =
         description TEXT NULL,   
         releaseDate TEXT NULL,
         energyType TEXT NULL,
-        cardType TEXT NULL
+        cardType TEXT NULL,
+        pokedex INTEGER NULL,
+        variants TEXT NULL
         );`
 
 export const expansionCreateDb =
@@ -248,8 +250,8 @@ async function pullCardsTCGP(expantion) {
         if (name.includes("Code Card") === false) {
             let cardNum = card.customAttributes.number.split("/")[0]
             let newCard = {
-                "cardId": `${expantion.name.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
-                "idTCGP": card.productId,
+                "cardId": `${card.setUrlName.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
+                "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)": ""}`,
                 "name": name,
                 "expIdTCGP": card.setUrlName,
                 "expName": expantion.name,
@@ -265,6 +267,7 @@ async function pullCardsTCGP(expantion) {
                 db.prepare(addCardSql).run(newCard)
             } catch (err) {
                 console.log(err)
+                console.log(JSON.stringify(newCard,null,1))
             }
             count++
         }

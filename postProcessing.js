@@ -1,22 +1,53 @@
-import sqlite3 from 'sqlite3'
-import * as fs from 'fs'
+import Database from 'better-sqlite3'
+
+const new_variants =
+[
+    "Normal",
+    "Reverse Holofoil",
+    "Holofoil"
+]
+
+const old_sets =
+[
+    "Base Set",
+    "Jungle",
+    "Fossil",
+    "Team Rocket",
+    "Gym Heroes",
+    "Gym Challenge",
+    "Neo Genesis",
+    "Neo Discovery",
+    "Southern Islands",
+    "Neo Revelation",
+    "Neo Destiny"
+]
+
+const old_variants =
+[
+    "1st Edition",
+    "Unlimited",
+    "1st Edition Holofoil",
+    "Unlimited Holofoil",
+]
 
 console.log('Post Processing')
 
-const db = new sqlite3.Database('./dist/data.sqlite3', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
-    if (err) console.error('Database opening error: ', err);
-});
+const db = new Database('./dist/data.sqlite3')
 
 start()
 
 async function start(){
-    await fixSetNumbers()
+
+     fixSetNumbers()
+     console.log(" - Fix set numbers")
+     forAll()
+
 }
 
-async function fixSetNumbers(){
+ function fixSetNumbers(){
     let ingoreSets = ['Celebrations']
-    let sqlSets = JSON.stringify(ingoreSets).replace("[", "(").replace("]", ")")
-    let records = await dbSelect(`SELECT * FROM cards WHERE expName NOT IN ${sqlSets}`)
+    let sqlSets = JSON.stringify(ingoreSets).replace("[", "(").replace("]", ")").replaceAll("\"","\'")
+    let records = db.prepare(`SELECT * FROM cards WHERE expName NOT IN ${sqlSets}`).all()
     for(let card of records){
         if(card.expCardNumber.match(/^\d$/)){
             card.expCardNumber = `00${card.expCardNumber}`
@@ -27,36 +58,59 @@ async function fixSetNumbers(){
                 card.expCardNumber = 'z-energy'
             }
         }
-        await dbRun(`UPDATE cards SET expCardNumber = $expCardNumber WHERE cardId = $cardId`, {'$expCardNumber': card.expCardNumber, '$cardId' : card.cardId})
+        db.prepare(`UPDATE cards SET expCardNumber = $expCardNumber WHERE cardId = $cardId`).run({'expCardNumber': card.expCardNumber, 'cardId' : card.cardId})
     }
 }
 
-export function dbRun(statement, args) {
-    return new Promise((resolve, reject) => {
-        db.run(statement, args, (err) => {
-            if (err) {
-                console.error(statement + ":" + args + ":" + err)
-                reject()
-            }
-            resolve()
-        })
-    })
+async function forAll(){
+    let records = db.prepare(`SELECT * FROM cards`).all()
+    for(let record of records){
+        let values = {
+            'cardId' : record.cardId,
+            'variants' : JSON.stringify(getVariants(record)),
+        }
+        db.prepare(`UPDATE cards SET variants = $variants WHERE cardId = $cardId`).run(values)
+    }
 }
 
-export function dbSelect(statement, args) {
-    return new Promise((resolve, reject) => {
-        const rows = [];
-        db.each(statement, args, (err, row) => {
-            if (err) {
-                reject(err);
+function getPokedex(card){
+
+}
+
+function getVariants(card){
+    let variants = []
+    if(old_sets.indexOf(card.expName) === -1) {
+        variants = JSON.parse(JSON.stringify(new_variants))
+        if (card.rarity === "Holo Rare") {
+            variants.shift()
+        } else if (card.rarity === "Common" ||
+            card.rarity === "Uncommon" ||
+            card.rarity === "Rare"
+        ) {
+            variants.pop()
+        } else if (card.rarity === "Ultra Rare" ||
+            card.rarity === "Secret Rare"
+        ) {
+            variants.shift()
+            variants.shift()
+        }
+    } else {
+        variants = JSON.parse(JSON.stringify(old_variants)) 
+        if(card.expIdTCGP === "Base Set"){
+            if(card.rarity === "Holo Rare"){
+                variants = ["Holofoil"]
+            }else{
+                variants = ["Normal"]
             }
-            rows.push(row);
-        }, (err, _) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(rows)
+        }else{
+            if(card.rarity === "Holo Rare"){
+                variants.shift()
+                variants.shift()
+            }else{
+                variants.pop()
+                variants.pop()
             }
-        });
-    });
+        }
+    }
+    return variants
 }
