@@ -79,7 +79,9 @@ function getPokedex(card){
 
 function getVariants(card){
     let variants = []
-    if(old_sets.indexOf(card.expName) === -1) {
+    if(card.expName === 'Celebrations'){
+        variants = ["Holofoil"]
+    }else if(old_sets.indexOf(card.expName) === -1) {
         variants = JSON.parse(JSON.stringify(new_variants))
         if (card.rarity === "Holo Rare") {
             variants.shift()
@@ -89,7 +91,11 @@ function getVariants(card){
         ) {
             variants.pop()
         } else if (card.rarity === "Ultra Rare" ||
-            card.rarity === "Secret Rare"
+            card.rarity === "Secret Rare" || 
+            card.rarity === "Rare BREAK" ||
+            card.rarity === "Prism Rare" ||
+            card.rarity === "Amazing Rare" ||
+            card.rarity === "Rare Ace"
         ) {
             variants.shift()
             variants.shift()
