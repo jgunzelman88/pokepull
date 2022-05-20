@@ -13,7 +13,8 @@ export const cardCreateDb =
         expCardNumber TEXT,
         rarity TEXT,
         img TEXT,
-        description TEXT NULL,   
+        price FLOAT,
+        description TEXT NULL,
         releaseDate TEXT NULL,
         energyType TEXT NULL,
         cardType TEXT NULL,
@@ -52,8 +53,8 @@ export const addExpSql =
     "VALUES ($name, $series, $tcgName, $pokellectorSet, $numberOfCards, $logoURL, $symbolURL)";
 
 export const addCardSql =
-    "INSERT INTO cards (cardId, idTCGP, name, expIdTCGP, expName, expCardNumber, rarity, img, description, releaseDate, energyType, cardType) " +
-    "VALUES ($cardId, $idTCGP, $name, $expIdTCGP, $expName, $expCardNumber, $rarity, $img, $description, $releaseDate, $energyType, $cardType);"
+    "INSERT INTO cards (cardId, idTCGP, name, expIdTCGP, expName, expCardNumber, rarity, img, price, description, releaseDate, energyType, cardType) " +
+    "VALUES ($cardId, $idTCGP, $name, $expIdTCGP, $expName, $expCardNumber, $rarity, $img, $price, $description, $releaseDate, $energyType, $cardType);"
 
 export const addSeriesSql =
     "INSERT INTO series (name, icon, releaseDate) " +
@@ -258,6 +259,7 @@ async function pullCardsTCGP(expantion) {
                 "expCardNumber": cardNum,
                 "rarity": card.rarityName,
                 "img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
+                "price": card.lowestPrice,
                 "description": card.customAttributes.description,
                 "releaseDate": card.customAttributes.releaseDate,
                 "energyType": card.customAttributes.energyType[0] ?? "",

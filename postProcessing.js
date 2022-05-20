@@ -68,13 +68,23 @@ async function forAll(){
         let values = {
             'cardId' : record.cardId,
             'variants' : JSON.stringify(getVariants(record)),
+            'pokedex' : getPokedex(record)
         }
-        db.prepare(`UPDATE cards SET variants = $variants WHERE cardId = $cardId`).run(values)
+        db.prepare(`UPDATE cards SET variants = $variants, pokedex = $pokedex WHERE cardId = $cardId`).run(values)
     }
 }
 
 function getPokedex(card){
-
+    let words = card.name.split(" ")
+    let sql = `SELECT id FROM pokedex WHERE `
+    for(let i = 0; i < words.length; i++){
+        sql += ` name = '${words[i].replaceAll("\'","\'\'").trim()}' `
+        if(i != words.length - 1){
+            sql += " OR "
+        }
+    }
+    let id = db.prepare(sql).get()
+    return id != null ? id.id : null
 }
 
 function getVariants(card){
