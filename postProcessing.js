@@ -84,7 +84,7 @@ function getPokedex(card){
         }
     }
     let id = db.prepare(sql).get()
-    return id != null ? id.id : null
+    return id != null ? id.id : 100000
 }
 
 function getVariants(card){
