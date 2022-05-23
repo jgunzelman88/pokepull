@@ -259,7 +259,7 @@ async function pullCardsTCGP(expantion) {
                 "expCardNumber": cardNum,
                 "rarity": card.rarityName,
                 "img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
-                "price": card.lowestPrice,
+                "price": card.marketPrice,
                 "description": card.customAttributes.description,
                 "releaseDate": card.customAttributes.releaseDate,
                 "energyType": card.customAttributes.energyType[0] ?? "",
