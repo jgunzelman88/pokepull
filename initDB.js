@@ -11,6 +11,7 @@ export const cardCreateDb =
         expIdTCGP TEXT NULL,
         expName TEXT,
         expCardNumber TEXT,
+        expCodeTCGP TEXT,
         rarity TEXT,
         img TEXT,
         price FLOAT,
@@ -53,8 +54,8 @@ export const addExpSql =
     "VALUES ($name, $series, $tcgName, $pokellectorSet, $numberOfCards, $logoURL, $symbolURL)";
 
 export const addCardSql =
-    "INSERT INTO cards (cardId, idTCGP, name, expIdTCGP, expName, expCardNumber, rarity, img, price, description, releaseDate, energyType, cardType) " +
-    "VALUES ($cardId, $idTCGP, $name, $expIdTCGP, $expName, $expCardNumber, $rarity, $img, $price, $description, $releaseDate, $energyType, $cardType);"
+    "INSERT INTO cards (cardId, idTCGP, name, expIdTCGP, expCodeTCGP, expName, expCardNumber, rarity, img, price, description, releaseDate, energyType, cardType) " +
+    "VALUES ($cardId, $idTCGP, $name, $expIdTCGP, $expCodeTCGP, $expName, $expCardNumber, $rarity, $img, $price, $description, $releaseDate, $energyType, $cardType);"
 
 export const addSeriesSql =
     "INSERT INTO series (name, icon, releaseDate) " +
@@ -105,6 +106,8 @@ const tcgRequest = `{
     "sort": {}
 }`
 
+let tcgpCodes = []
+
 let tcgPlayerSets = []
 let missingData = JSON.parse(fs.readFileSync("./missingdata.json").toString())
 
@@ -126,6 +129,7 @@ async function start() {
     console.log("Meta Data")
     await getPokedex()
     await getTCGPmetaData()
+    await getCodes()
     fs.writeFileSync("./dist/tcgSets.json", JSON.stringify(tcgPlayerSets, null,1))
     console.log("Pull Sets")
     await getPokellectorSeries()
@@ -146,14 +150,27 @@ function createTables() {
 async function getTCGPmetaData() {
     let requestTcgSets = JSON.parse(tcgRequest)
     return axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, requestTcgSets).then((res) => {
-        console.log(res.data.results[0].aggregations.rarityName.map((rare) => rare.value))
-        console.log(res.data.results[0].aggregations.cardType.map((type) => type.value))
+        //console.log(res.data.results[0].aggregations.rarityName.map((rare) => rare.value))
+        //console.log(res.data.results[0].aggregations.cardType.map((type) => type.value))
         res.data.results[0].aggregations.setName.forEach(
             (element) => {
                 tcgPlayerSets.push(element.urlValue)
             }
         )
     })
+}
+
+function getTcgpCode(setName){
+    let codes = tcgpCodes.find((value) => value.name === setName)
+    return codes != null ? codes.code : ""
+}
+
+async function getCodes() {
+    return axios.get(`https://mpapi.tcgplayer.com/v2/massentry/sets/3`).then(
+        (res) => {
+            tcgpCodes = res.data.results
+        }
+    )
 }
 
 /**
@@ -255,6 +272,7 @@ async function pullCardsTCGP(expantion) {
                 "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)": ""}`,
                 "name": name,
                 "expIdTCGP": card.setUrlName,
+                "expCodeTCGP" : getTcgpCode(card.setName) ?? "",
                 "expName": expantion.name,
                 "expCardNumber": cardNum,
                 "rarity": card.rarityName,
@@ -263,7 +281,7 @@ async function pullCardsTCGP(expantion) {
                 "description": card.customAttributes.description,
                 "releaseDate": card.customAttributes.releaseDate,
                 "energyType": card.customAttributes.energyType[0] ?? "",
-                "cardType": card.customAttributes.cardType[0] ?? "",
+                "cardType": card.customAttributes.cardType[0] ?? ""
             }
             try {
                 db.prepare(addCardSql).run(newCard)
