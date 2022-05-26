@@ -197,11 +197,13 @@ async function getSealedProducts() {
     request.filters.term.productTypeName.push("Sealed Products")
     request.size = 250
     for (let i = 0; i < total; i += 250) {
+        request.from = i
         try {
             let sealedProds = await axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, request)
             let productList = sealedProds.data.results[0].results
             if (total === 1000) {
-                total = sealedProds.data.results.totalResults
+                console.log(sealedProds.data.results[0].totalResults)
+                total = sealedProds.data.results[0].totalResults
             }
             for (let product of productList) {
                 db.prepare(addSealedSql).run(
@@ -232,8 +234,8 @@ function getType(name) {
         return "ETB"
     } else if (name.includes("Booster Pack")) {
         return "Booster Pack"
-    } else if (name.includes("Premium Collection")) {
-        return "Premium Collection"
+    } else if (name.includes("Premium") || name.includes("Deluxe") || name.includes("Collector")) {
+        return "Speacial item"
     } else if (name.includes("Box")) {
         return "Box"
     } else if (name.includes("Blister")) {
