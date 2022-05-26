@@ -49,6 +49,17 @@ export const pokedexCreateDb =
         img TEXT
         );`
 
+export const sealedCreateDb =
+    `CREATE TABLE IF NOT EXISTS sealed (
+         name TEXT,
+         price FLOAT,
+         idTCGP TEXT,
+         expIdTCGP TEXT,
+         expName TEXT,
+         type TEXT,
+         img TEXT
+        );`
+
 export const addExpSql =
     "INSERT INTO expansions (name, series, tcgName, pokellectorSet, numberOfCards, logoURL, symbolURL) " +
     "VALUES ($name, $series, $tcgName, $pokellectorSet, $numberOfCards, $logoURL, $symbolURL)";
@@ -56,6 +67,10 @@ export const addExpSql =
 export const addCardSql =
     "INSERT INTO cards (cardId, idTCGP, name, expIdTCGP, expCodeTCGP, expName, expCardNumber, rarity, img, price, description, releaseDate, energyType, cardType) " +
     "VALUES ($cardId, $idTCGP, $name, $expIdTCGP, $expCodeTCGP, $expName, $expCardNumber, $rarity, $img, $price, $description, $releaseDate, $energyType, $cardType);"
+
+export const addSealedSql =
+    "INSERT INTO sealed (idTCGP, name, expIdTCGP, expName, type, img, price) " +
+    "VALUES ($idTCGP, $name, $expIdTCGP, $expName, $type, $img, $price);"
 
 export const addSeriesSql =
     "INSERT INTO series (name, icon, releaseDate) " +
@@ -130,7 +145,8 @@ async function start() {
     await getPokedex()
     await getTCGPmetaData()
     await getCodes()
-    fs.writeFileSync("./dist/tcgSets.json", JSON.stringify(tcgPlayerSets, null,1))
+    fs.writeFileSync("./dist/tcgSets.json", JSON.stringify(tcgPlayerSets, null, 1))
+    await getSealedProducts()
     console.log("Pull Sets")
     await getPokellectorSeries()
     console.log("Closing database")
@@ -145,13 +161,13 @@ function createTables() {
     db.prepare(seriesCreateDb).run()
     console.log(" - Create Series Table")
     db.prepare(pokedexCreateDb).run()
+    console.log(" - Create sealed table")
+    db.prepare(sealedCreateDb).run()
 }
 
 async function getTCGPmetaData() {
     let requestTcgSets = JSON.parse(tcgRequest)
     return axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, requestTcgSets).then((res) => {
-        //console.log(res.data.results[0].aggregations.rarityName.map((rare) => rare.value))
-        //console.log(res.data.results[0].aggregations.cardType.map((type) => type.value))
         res.data.results[0].aggregations.setName.forEach(
             (element) => {
                 tcgPlayerSets.push(element.urlValue)
@@ -160,7 +176,7 @@ async function getTCGPmetaData() {
     })
 }
 
-function getTcgpCode(setName){
+function getTcgpCode(setName) {
     let codes = tcgpCodes.find((value) => value.name === setName)
     return codes != null ? codes.code : ""
 }
@@ -172,6 +188,63 @@ async function getCodes() {
         }
     )
 }
+
+async function getSealedProducts() {
+    console.log(" - Pulling sealed product")
+    let total = 1000
+    let request = JSON.parse(tcgRequest)
+    request.filters.term.productTypeName.pop()
+    request.filters.term.productTypeName.push("Sealed Products")
+    request.size = 250
+    for (let i = 0; i < total; i += 250) {
+        try {
+            let sealedProds = await axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, request)
+            let productList = sealedProds.data.results[0].results
+            if (total === 1000) {
+                total = sealedProds.data.results.totalResults
+            }
+            for (let product of productList) {
+                db.prepare(addSealedSql).run(
+                    {
+                        name: product.productName,
+                        price: product.marketPrice,
+                        idTCGP: product.productId,
+                        expIdTCGP: product.setUrlName,
+                        expName: '',
+                        type: getType(product.productName),
+                        img: `https://product-images.tcgplayer.com/fit-in/437x437/${product.productId?.toFixed()}.jpg`
+                    }
+                )
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+function getType(name) {
+    if(!name){
+        return ""
+    }
+    if (name.includes("Booster Box")) {
+        return "Booster Box"
+    } else if (name.includes("Elite Trainer Box")) {
+        return "ETB"
+    } else if (name.includes("Booster Pack")) {
+        return "Booster Pack"
+    } else if (name.includes("Premium Collection")) {
+        return "Premium Collection"
+    } else if (name.includes("Box")) {
+        return "Box"
+    } else if (name.includes("Blister")) {
+        return "Blister"
+    } else if (name.includes("Theme Deck")) {
+        return "Theme Deck"
+    } else {
+        return ""
+    }
+}
+
 
 /**
  * Checks for new sets will not overwrite old ones will only add new sets
@@ -269,10 +342,10 @@ async function pullCardsTCGP(expantion) {
             let cardNum = card.customAttributes.number.split("/")[0]
             let newCard = {
                 "cardId": `${card.setUrlName.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
-                "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)": ""}`,
+                "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)" : ""}`,
                 "name": name,
                 "expIdTCGP": card.setUrlName,
-                "expCodeTCGP" : getTcgpCode(card.setName) ?? "",
+                "expCodeTCGP": getTcgpCode(card.setName) ?? "",
                 "expName": expantion.name,
                 "expCardNumber": cardNum,
                 "rarity": card.rarityName,
@@ -287,7 +360,7 @@ async function pullCardsTCGP(expantion) {
                 db.prepare(addCardSql).run(newCard)
             } catch (err) {
                 console.log(err)
-                console.log(JSON.stringify(newCard,null,1))
+                console.log(JSON.stringify(newCard, null, 1))
             }
             count++
         }
@@ -334,11 +407,11 @@ async function getPokedex() {
     let res = await axios.get(`https://pokemondb.net/pokedex/national`);
     const { window } = new jsdom.JSDOM(res.data)
     let rows = window.document.getElementsByClassName("infocard")
-    for(let row of rows){
+    for (let row of rows) {
         let number = Number.parseInt(row.getElementsByTagName("small")[0].textContent.replace("#", ""))
         let img = row.getElementsByClassName("img-sprite")[0].src
         let name = row.getElementsByClassName('ent-name')[0].textContent
-        db.prepare(addPokedex).run({name: name, id: number, img: img})
+        db.prepare(addPokedex).run({ name: name, id: number, img: img })
     }
 }
 
