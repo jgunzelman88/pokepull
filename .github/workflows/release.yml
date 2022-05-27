@@ -17,4 +17,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/data.sqlite3
-          GITHUB_TOKEN: "${{ secrets.JPG_ACTION_TOKEN }}"
+          token: "${{ secrets.JPG_ACTION_TOKEN }}"
