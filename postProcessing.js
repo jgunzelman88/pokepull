@@ -105,7 +105,8 @@ function getVariants(card){
             card.rarity === "Rare BREAK" ||
             card.rarity === "Prism Rare" ||
             card.rarity === "Amazing Rare" ||
-            card.rarity === "Rare Ace"
+            card.rarity === "Rare Ace" ||
+            card.rarity === "Radiant Rare"
         ) {
             variants.shift()
             variants.shift()
