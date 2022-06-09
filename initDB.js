@@ -234,8 +234,8 @@ function getType(name) {
         return "ETB"
     } else if (name.includes("Booster Pack")) {
         return "Booster Pack"
-    } else if (name.includes("Premium") || name.includes("Deluxe") || name.includes("Collector")) {
-        return "Speacial item"
+    } else if (name.includes("Premium") || name.includes("Deluxe") || name.includes("Collector") || name.includes("Special")) {
+        return "Special item"
     } else if (name.includes("Box")) {
         return "Box"
     } else if (name.includes("Blister")) {
