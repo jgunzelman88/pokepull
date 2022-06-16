@@ -302,34 +302,6 @@ async function getPokellectorSeries() {
     }
 }
 
-//Pull cards from pokellector
-function pullCardsPokellecotor(expantion) {
-    /*let res = await axios.get(expantion.pokellectorSet);
-    const { window } = new jsdom.JSDOM(res.data)
-    let rows = window.document.getElementsByClassName("card")
-    for(let i = 0; i<rows.length; i+=2){
-        let plaque = rows[i].getElementsByClassName("plaque")[0].textContent
-        let img = rows[i+1].getElementsByTagName("img")[0].src
-        let cardNum = plaque.split("-")[0].replace("#", "").trim()
-        let name = plaque.split("-")[1].trim()
-
-        let newCard = {
-            "cardId": `${expantion.name.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
-            "idTCGP": -1,
-            "name": name,
-            "expIdTCGP": card.setUrlName,
-            "expName": expantion.name,
-            "expCardNumber": cardNum,
-            "rarity": card.rarityName,
-            "img": img,
-            "description": card.customAttributes.description,
-            "releaseDate": card.customAttributes.releaseDate,
-            "energyType": card.customAttributes.energyType[0] ?? "",
-            "cardType": card.customAttributes.cardType[0] ?? "",
-        }
-    }*/
-}
-
 //Pull cards from tcg player
 async function pullCardsTCGP(expantion) {
     let request = JSON.parse(tcgRequest)
