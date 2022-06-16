@@ -290,7 +290,7 @@ async function getPokellectorSeries() {
                         console.log(`Pulling ${exp.name} `)
                         console.log(` - TCGP ${exp.tcgName}`)
                         if (exp.tcgName === "[\"N/A\"]") {
-                            pullCardsPokellecotor(exp)
+                           //pullCardsPokellecotor(exp)
                         } else {
                             await pullCardsTCGP(exp)
                         }
