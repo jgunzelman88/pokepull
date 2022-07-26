@@ -6,6 +6,9 @@
     "bun-types": "latest"
   },
   "dependencies": {
-    "@google-cloud/datastore": "^7.0.0"
+    "@google-cloud/datastore": "^7.0.0",
+    "http2": "^3.3.7",
+    "spdy-transport": "^3.0.0",
+    "ts-command-line-args": "^2.3.1"
   }
 }

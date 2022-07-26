@@ -1,10 +1,9 @@
 
 export class Card {
+    public guid: string
     public cardId: string
     public idTCGP: string
-    public cardHash: string
     public name : string
-    public expIdTCGP: number
     public expCodeTCGP?: string
     public expName: string
     public expCardNumber : string
@@ -13,19 +12,13 @@ export class Card {
     public releaseDate?: string
     public energyType?: string
     public cardType?: string
-    public collection?: string
     public variant?: string
-    public paid?: number
-    public count? : number
-    public grade? : string
-    public variants? : string
+    public variants? : Array<string>
 
-    constructor(cardId: string, idTCGP: string, name:string, expId:number, expName:string, expCardNumber:string, rarity:string){
+    constructor(cardId: string, idTCGP: string, name:string, expName:string, expCardNumber:string, rarity:string){
         this.cardId = cardId
-        this.cardHash = 
         this.idTCGP = idTCGP
         this.name = name
-        this.expIdTCGP = expId
         this.expName = expName
         this.expCardNumber = expCardNumber
         this.rarity = rarity
@@ -35,7 +28,8 @@ export class Card {
 export class Price {
     public date: number
     public cardId: string
-    public variant: string 
+    public variant: string
+    public grade: number
     public vendor: string
     public price: number
 
