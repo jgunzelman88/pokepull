@@ -2,6 +2,7 @@ import * as jsdom from 'jsdom'
 import axios from 'axios'
 import Database from 'better-sqlite3'
 import * as fs from 'fs'
+import path from 'path'
 
 export const cardCreateDb =
     `CREATE TABLE IF NOT EXISTS cards (
@@ -121,6 +122,8 @@ const tcgRequest = `{
     "sort": {}
 }`
 
+const CORRECTION_PATH = './corrections'
+
 let tcgpCodes = []
 
 let tcgPlayerSets = []
@@ -146,9 +149,12 @@ async function start() {
     await getTCGPmetaData()
     await getCodes()
     fs.writeFileSync("./dist/tcgSets.json", JSON.stringify(tcgPlayerSets, null, 1))
+    addAdditionalExpantions()
     await getSealedProducts()
     console.log("Pull Sets")
     await getPokellectorSeries()
+    console.log("Pull Corrections")
+    await pullCorrections()
     console.log("Closing database")
     db.close()
 }
@@ -209,7 +215,7 @@ async function getSealedProducts() {
                 db.prepare(addSealedSql).run(
                     {
                         name: product.productName,
-                        price: product.marketPrice,
+                        price: product.marketPrice ?? product.lowestPrice,
                         idTCGP: product.productId,
                         expIdTCGP: product.setUrlName,
                         expName: '',
@@ -225,7 +231,7 @@ async function getSealedProducts() {
 }
 
 function getType(name) {
-    if(!name){
+    if (!name) {
         return ""
     }
     if (name.includes("Booster Box")) {
@@ -290,15 +296,23 @@ async function getPokellectorSeries() {
                         console.log(`Pulling ${exp.name} `)
                         console.log(` - TCGP ${exp.tcgName}`)
                         if (exp.tcgName === "[\"N/A\"]") {
-                           //pullCardsPokellecotor(exp)
+                            //pullCardsPokellecotor(exp)
                         } else {
                             await pullCardsTCGP(exp)
                         }
-
                     }
                 }
             }
         }
+    }
+}
+
+function addAdditionalExpantions(){
+    let sql = "INSERT INTO expansions (name, series, tcgName, pokellectorSet, numberOfCards, logoURL, symbolURL, releaseDate) " +
+    "VALUES ($name, $series, $tcgName, $pokellectorSet, $numberOfCards, $logoURL, $symbolURL, $releaseDate)";
+    console.log(" - Pulling sealed product")
+    for(let exp of missingData.exps){
+        db.prepare(sql).run(exp)
     }
 }
 
@@ -310,34 +324,8 @@ async function pullCardsTCGP(expantion) {
     let count = 0
     let releaseDate
     for (let card of res.data.results[0].results) {
-        let name = card.productName;
         releaseDate = releaseDate == null ? card.customAttributes.releaseDate : releaseDate
-        if (name.includes("Code Card") === false) {
-            let cardNum = card.customAttributes.number.split("/")[0]
-            let newCard = {
-                "cardId": `${card.setUrlName.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
-                "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)" : ""}`,
-                "name": name,
-                "expIdTCGP": card.setUrlName,
-                "expCodeTCGP": getTcgpCode(card.setName) ?? "",
-                "expName": expantion.name,
-                "expCardNumber": cardNum,
-                "rarity": card.rarityName,
-                "img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
-                "price": card.marketPrice,
-                "description": card.customAttributes.description,
-                "releaseDate": card.customAttributes.releaseDate,
-                "energyType": card.customAttributes.energyType[0] ?? "",
-                "cardType": card.customAttributes.cardType[0] ?? ""
-            }
-            try {
-                db.prepare(addCardSql).run(newCard)
-            } catch (err) {
-                console.log(err)
-                console.log(JSON.stringify(newCard, null, 1))
-            }
-            count++
-        }
+        count += addCard(card, releaseDate, expantion.name)
     }
     let relDateExp = releaseDate
     let relSeries = releaseDate
@@ -358,10 +346,61 @@ async function pullCardsTCGP(expantion) {
     console.log(`Added ${count} ${expantion.name} cards`)
 }
 
+function addCard(card, releaseDate, expansion) {
+    let name = card.productName;
+    if (name.includes("Code Card") === false) {
+        let cardNum = card.customAttributes.number.split("/")[0]
+        let newCard = {
+            "cardId": `${card.setUrlName.replaceAll(" ", "-")}-${name.replaceAll(" ", "-")}-${cardNum}`,
+            "idTCGP": `${card.productId}${card.setUrlName === "Base Set (Shadowless)" ? " (Shadowless)" : ""}`,
+            "name": name,
+            "expIdTCGP": card.setUrlName,
+            "expCodeTCGP": getTcgpCode(card.setName) ?? "",
+            "expName": expansion,
+            "expCardNumber": cardNum,
+            "rarity": card.rarityName,
+            "img": `https://product-images.tcgplayer.com/fit-in/437x437/${card.productId.toFixed()}.jpg`,
+            "price": card.marketPrice ?? card.lowestPrice,
+            "description": card.customAttributes.description,
+            "releaseDate": releaseDate,
+            "energyType": card.customAttributes.energyType[0] ?? "",
+            "cardType": card.customAttributes.cardType[0] ?? ""
+        }
+        try {
+            db.prepare(addCardSql).run(newCard)
+        } catch (err) {
+            console.log(err)
+            console.log(JSON.stringify(newCard, null, 1))
+        }
+        return 1
+    }
+    return 0
+}
+
+async function pullCorrections() {
+    let files = fs.readdirSync('./corrections')
+    let request = JSON.parse(tcgRequest)
+    for (let file of files) {
+        let correction = JSON.parse(fs.readFileSync(path.join(CORRECTION_PATH, file)).toString())
+        request.filters.term.setName = [correction.set]
+        let response
+        try{
+            response = await axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, request)
+        }catch(err){
+            console.log(err)
+        }
+        let results = response.data.results[0].results
+        for (let item of correction.cards) {
+            let card = results.find((val) => val.productId === item.idTCGP )
+            let releaseDate = card.customAttributes.releaseDate == null ? correction.releaseDate : card.customAttributes.releaseDate
+            addCard(card, releaseDate, item.expName)
+        }
+    }
+}
+
 function findTcgSetName(expName, series, tcgSets) {
     let expNameNorm = (series === expName) ? normalizePOKE(expName) + "baseset" : normalizePOKE(expName)
     let name = searchNameMap(expName)
-
     if (name.length == 0) {
         name = tcgSets.filter((value) => normalizeTCG(value).includes(expNameNorm))
     }

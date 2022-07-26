@@ -1,12 +1,38 @@
 {
+    "exps": [
+        {
+            "name": "General Mills 25th Anniversary Promos",
+            "series": "Sword & Shield",
+            "tcgName": "[\"N/A\"]",
+            "pokellectorSet": "",
+            "numberOfCards": 6,
+            "logoURL": "http://localhost:3030/assests/exp/general-mills-25th.png",
+            "symbolURL": "https://den-media.pokellector.com/logos/Sword-Shield-Promos.symbol.287.png",
+            "releaseDate": "2021-02-27T00:00:00Z"
+        },
+        {
+            "name": "General Mills 25th Anniversary Promos",
+            "series": "Sword & Shield",
+            "tcgName": "[\"N/A\"]",
+            "pokellectorSet": "",
+            "numberOfCards": 6,
+            "logoURL": "http://localhost:3030/assests/exp/general-mills-25th.png",
+            "symbolURL": "https://den-media.pokellector.com/logos/Sword-Shield-Promos.symbol.287.png",
+            "releaseDate": "2021-02-27T00:00:00Z"
+        }
+    ],
     "tcgNameMap": [
         {
             "name": "Pokemon Futsal Promos",
-            "tcgName": ["N/A"]
+            "tcgName": [
+                "N/A"
+            ]
         },
         {
             "name": "McDonald's Collection (2016)",
-            "tcgName": ["N/A"]
+            "tcgName": [
+                "N/A"
+            ]
         },
         {
             "name": "Sun & Moon Promos",
@@ -54,7 +80,9 @@
         },
         {
             "name": "McDonald's Collection (2013)",
-            "tcgName": ["N/A"]
+            "tcgName": [
+                "N/A"
+            ]
         },
         {
             "name": "Black & White Promos",
