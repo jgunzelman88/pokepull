@@ -1,24 +1,29 @@
-
 export class Card {
-    public guid: string
     public cardId: string
-    public idTCGP: string
+    public idTCGP: number
     public name : string
+    public expIdTCGP: string
     public expCodeTCGP?: string
     public expName: string
     public expCardNumber : string
     public rarity: string
     public price?: number
+    public pokedex?: number
     public releaseDate?: string
     public energyType?: string
     public cardType?: string
+    public collection?: string
     public variant?: string
-    public variants? : Array<string>
+    public paid?: number
+    public count? : number
+    public grade? : string
+    public variants? : string[]
 
-    constructor(cardId: string, idTCGP: string, name:string, expName:string, expCardNumber:string, rarity:string){
+    constructor(cardId: string, idTCGP: number, name:string, expId:string, expName:string, expCardNumber:string, rarity:string){
         this.cardId = cardId
         this.idTCGP = idTCGP
         this.name = name
+        this.expIdTCGP = expId
         this.expName = expName
         this.expCardNumber = expCardNumber
         this.rarity = rarity
@@ -28,8 +33,7 @@ export class Card {
 export class Price {
     public date: number
     public cardId: string
-    public variant: string
-    public grade: number
+    public variant: string 
     public vendor: string
     public price: number
 
@@ -41,6 +45,7 @@ export class Price {
         this.price = price
     }
 }
+
 
 export class CardSearch {
     public total: number = 0
