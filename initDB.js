@@ -327,8 +327,8 @@ async function pullCardsTCGP(expantion) {
                 "price": card.marketPrice,
                 "description": card.customAttributes.description,
                 "releaseDate": card.customAttributes.releaseDate,
-                "energyType": card.customAttributes.energyType[0] ?? "",
-                "cardType": card.customAttributes.cardType[0] ?? ""
+                "energyType": card.customAttributes.energyType != null ? card.customAttributes.energyType[0] ?? "" : "",
+                "cardType": card.customAttributes.cardType != null ?card.customAttributes.cardType[0] ?? "" : ""
             }
             try {
                 db.prepare(addCardSql).run(newCard)
