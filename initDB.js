@@ -283,8 +283,8 @@ async function getPokellectorSeries() {
                             tcgName: findTcgSetName(expName, series_name, tcgPlayerSets),
                             pokellectorSet: `https://www.pokellector.com${button.href}`,
                             numberOfCards: 0,
-                            logoURL: imgs[0].src,
-                            symbolURL: imgs[1].src
+                            logoURL: imgs[0].src ?? "",
+                            symbolURL: imgs[1] != null ? imgs[1].src ?? "" : ""
                         }
                         db.prepare(addExpSql).run(exp)
                         console.log(`Pulling ${exp.name} `)
