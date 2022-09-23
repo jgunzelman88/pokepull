@@ -4,7 +4,6 @@ import { Card } from "../model/Card";
 
 const datastore = new Datastore({projectId: "alpine-air-331321"});
 
-
 export function upsertCard(card: Card) : Promise<CommitResponse>{
     const entity = {
             key: "card",
@@ -12,4 +11,3 @@ export function upsertCard(card: Card) : Promise<CommitResponse>{
     }
     return datastore.save(entity)
 }
-
