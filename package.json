@@ -1,6 +1,6 @@
 {
   "name": "pokepull",
-  "version": "0.2.27",
+  "version": "0.2.28",
   "description": "pull them pokemon",
   "type": "module",
   "main": "dist/PullPokellector",
