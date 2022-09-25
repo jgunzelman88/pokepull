@@ -264,6 +264,8 @@ async function getPokellectorSeries() {
     const left = window.document.getElementById("columnLeft")
     const seriesName = left?.getElementsByTagName("h1")
     const seriesExp = left?.getElementsByClassName("buttonlisting")
+    let series = []
+    let exps = []
     //cycle though series
     if (seriesName != null) {
         for (let i = 0; i < seriesName.length; i++) {
@@ -292,6 +294,7 @@ async function getPokellectorSeries() {
                             logoURL: imgs[0].src,
                             symbolURL: imgs[1].src
                         }
+                        exps.push(exp)
                         db.prepare(addExpSql).run(exp)
                         console.log(`Pulling ${exp.name} `)
                         console.log(` - TCGP ${exp.tcgName}`)
@@ -304,7 +307,10 @@ async function getPokellectorSeries() {
                 }
             }
         }
+        series.push(series)
     }
+    fs.writeFileSync("./dist/series.json", JSON.stringify(series))
+    fs.writeFileSync("./dist/exps.json", JSON.stringify(exps))
 }
 
 function addAdditionalExpantions(){
@@ -323,10 +329,14 @@ async function pullCardsTCGP(expantion) {
     let res = await axios.post(`https://mpapi.tcgplayer.com/v2/search/request?q=&isList=false`, request)
     let count = 0
     let releaseDate
+    let cards = []
     for (let card of res.data.results[0].results) {
         releaseDate = releaseDate == null ? card.customAttributes.releaseDate : releaseDate
-        count += addCard(card, releaseDate, expantion.name)
+        let newCard = addCard(card, releaseDate, expantion.name)
+        if (newCard != null) count++ 
+        cards.push(newCard)
     }
+    fs.writeFileSync(`./dist/cards/${expantion.name}.json`, JSON.stringify(cards))
     let relDateExp = releaseDate
     let relSeries = releaseDate
     if (relDateExp == null) {
@@ -372,9 +382,9 @@ function addCard(card, releaseDate, expansion) {
             console.log(err)
             console.log(JSON.stringify(newCard, null, 1))
         }
-        return 1
+        return newCard
     }
-    return 0
+    return null
 }
 
 async function pullCorrections() {

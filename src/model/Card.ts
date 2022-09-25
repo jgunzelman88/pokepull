@@ -7,6 +7,7 @@ export class Card {
     public expName: string
     public expCardNumber : string
     public rarity: string
+    public img?: string
     public price?: number
     public pokedex?: number
     public releaseDate?: string
