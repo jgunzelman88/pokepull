@@ -3,7 +3,6 @@ name: auto
 on:
   schedule:
     - cron: 0 0 * * FRI
-
 jobs:
   auto:
     runs-on: ubuntu-latest
@@ -14,7 +13,7 @@ jobs:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
     - uses: actions/setup-node@v1
       with:
-        node-version: 17
+        node-version: 18
     - name: setConfig files
       run: |
         git config --local user.email "poketrax@gmail.com"

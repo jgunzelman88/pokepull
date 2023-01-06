@@ -7,7 +7,8 @@
   "typings": "dist/PullPokellector",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./initDB.js && node ./postProcessing.js"
+    "build": "node ./initDB.js && node ./postProcessing.js",
+    "export": "node ./export"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   "dependencies": {
     "axios": "^0.26.1",
     "better-sqlite3": "^7.5.1",
-    "jsdom": "^19.0.0"
+    "jsdom": "^19.0.0",
+    "node-fetch": "^3.2.10"
   },
   "devDependencies": {
     "@types/node": "^17.0.23"
